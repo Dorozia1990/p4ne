@@ -10,7 +10,7 @@ varBindsIndex = 3
 
 result = getCmd(
 	SnmpEngine(),
-	CommunityData('public', mpModel=0),
+	CommunityData('public', mpModel = 0),
 	UdpTransportTarget((ipaddr_string, port_int)),
 	ContextData(),
 	ObjectType(snmp_ver)
@@ -19,11 +19,11 @@ result = getCmd(
 
 result2 = nextCmd(
 	SnmpEngine(),
-	CommunityData('public', mpModel=0),
+	CommunityData('public', mpModel = 0),
 	UdpTransportTarget((ipaddr_string, port_int)),
 	ContextData(),
 	ObjectType(snmp_object),
-	lexicographicMode=False
+	lexicographicMode = False
 )
 #result2: (errorIndication, errorStatus, errorIndex, varBinds)
 
