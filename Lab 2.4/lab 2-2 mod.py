@@ -52,35 +52,12 @@ class Ssl1HttpAdapter(HTTPAdapter):
         self.poolmanager = PoolManager(num_pools=connections, maxsize=maxsize, block=block,
                                        ssl_version=ssl.PROTOCOL_TLSv1)
 
-
-# months transition
-
-def takeMonth(strMonth):
-    d = {"Jan ": 1,
-         "Feb ": 2,
-         "Mar ": 3,
-         "Apr ": 4,
-         "May ": 5,
-         "Jun ": 6,
-         "Jul ": 7,
-         "Aug ": 8,
-         "Sep ": 9,
-         "Oct ": 10,
-         "Nov ": 11,
-         "Dec ": 12,
-         }
-    return d[strMonth]
-
-
 #authorizeAndCheck
 def authAndC(currentToken, deathTime):
     if (deathTime < datetime.datetime.now()) or (currentToken == ""):
         r = s.get(L22_HOST, verify=False)
         r = s.post(L22_HOST + '/api/v1/auth/token-services', auth=(LOGIN, PASS), verify=False)
         token = r.json()['token-id']
-        #print(r.json()['expiry-time'])
-        timeMatch = re.match("^(([a-zA-Z]{3} ){2})([0-9]*) ([0-9]*):([0-9]*):([0-9]*) ([0-9]{4})", r.json()['expiry-time'])
-        hour = str(int(timeMatch.group(4)) + TIMEZONE_DIFF)
         deathTime = datetime.datetime.strptime(r.json()['expiry-time'], "%c")
     #    print(r.json())
     #    global tokenDeathTime = r.json()[]
